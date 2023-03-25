@@ -32,6 +32,7 @@ async function fetchJournals(limit, page, search) {
         const skip = (page - 1) * limit;
         const allJournals = await Journal.find({ ...(search && { publishedDate: { $eq: new Date(search) } }) })
             .skip(skip)
+            .sort({createdAt:-1})
             .limit(limit);
         const count = await Journal.countDocuments();
         return {
