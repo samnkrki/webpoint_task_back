@@ -1,8 +1,9 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
-const router = require('./journal.route');
+const router = require('./routes/index.route');
 require('dotenv').config()
 const cors = require("cors");
+const swaggerDocs = require('./swagger');
 
 const PORT = 3001;
 const app = express();
@@ -22,10 +23,11 @@ db.once("open", function () {
 app.use(cors())
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use("/journal", router);
+app.use(router);
 
 app.get("/", (req, res)=>{res.send("health check complete")});
 
 app.listen(PORT,()=> {
     console.log("Journal Record Server listening on PORT", PORT);
+    swaggerDocs(app);
 })
