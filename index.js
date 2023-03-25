@@ -24,7 +24,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use("/journal", router);
 
-app.get("/", ()=>{res.send("health check complete")});
+app.get("/", (req, res)=>{res.send("health check complete")});
 
 app.listen(PORT,()=> {
     console.log("Journal Record Server listening on PORT", PORT);
